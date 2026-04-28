@@ -68,6 +68,5 @@ GET /clientes?page=0&size=10
 GET /clientes/email?email=example@email.com
 GET /clientes/nome?nome=Maria
 GET /clientes/{id}/desconto
-DELETE /clientes/{id}
-
+DELETE /clientes/{id}```
 
