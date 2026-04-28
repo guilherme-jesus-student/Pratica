@@ -1,45 +1,73 @@
-#  Espaço Ka - Sistema de Agendamento Prática
+# 💅 Espaço Ka - Sistema de Agendamento
 
-Este é um sistema robusto de gestão para salões de manicure, desenvolvido com **Spring Boot 3**. O projeto foi evoluído de um CRUD básico para uma aplicação com regras de negócio reais, focado em automação e experiência do cliente.
-
----
-
-## 🚀 Funcionalidades Principais
-
-* **Gestão de Clientes:** Cadastro completo com validação de e-mail único e busca por nome/e-mail.
-* **Regras de Fidelização:** Verificação automática de desconto para clientes aniversariantes do mês.
-* **Agendamento Inteligente:** * Validação de horário de funcionamento (08h às 19h).
-    * Bloqueio de agendamentos em horários passados.
-    * **Prevenção de Conflitos:** O sistema impede que um profissional tenha dois agendamentos no mesmo horário.
-*  Automação (Scheduling):** Robô que monitora o banco de dados a cada 10 minutos e cancela automaticamente agendamentos com mais de 20 minutos de atraso.
+Sistema de gestão para salões de manicure com foco em **automação de processos**, **regras de negócio reais** e **prevenção de conflitos de agenda**.  
+Desenvolvido com **Spring Boot 3**, seguindo boas práticas de arquitetura em camadas.
 
 ---
 
-# Tecnologias Utilizadas
+## 🚀 Funcionalidades
 
-* **Java 17**
-* **Spring Boot 3**
-* **Spring Data JPA** (Persistência de dados)
-* **H2 Database** (Banco de dados em memória para desenvolvimento)
-* **Maven** (Gerenciador de dependências)
-* **Lombok** (Produtividade no código)
+### 👤 Gestão de Clientes
+- Cadastro completo de clientes
+- Validação de e-mail único
+- Busca por nome e e-mail
 
----
+### 🎁 Regras de Fidelização
+- Desconto automático para clientes aniversariantes do mês
 
-## 🏗️ Arquitetura do Projeto
+### 📅 Agendamento Inteligente
+- Validação de horário de funcionamento (08h às 19h)
+- Bloqueio de agendamentos em horários passados
+- Prevenção de conflitos (um profissional não pode ter dois agendamentos no mesmo horário)
 
-O projeto segue as melhores práticas de desenvolvimento, com separação clara de responsabilidades:
-
-1.  **Controller:** Exposição dos endpoints REST.
-2.  **Service:** Camada onde reside toda a inteligência e regras de negócio do salão.
-3.  **Repository:** Interface de comunicação com o banco de dados via JPA.
-4.  **DTO (Data Transfer Object):** Segurança e performance no tráfego de dados.
-5.  **Model/Entity:** Representação das tabelas do banco e estados (Enums).
+### 🤖 Automação
+- Rotina executada a cada 10 minutos
+- Cancelamento automático de agendamentos com mais de 20 minutos de atraso
 
 ---
 
-## 🏁 Como Executar
+## 🧠 Regras de Negócio Aplicadas
 
-1. Clone o repositório:
-   ```bash
-   git clone [https://github.com/guilherme-jesus-student/Pratica.git](https://github.com/guilherme-jesus-student/Pratica.git)
+- Validação de data e hora em tempo real
+- Controle de conflitos de agenda (anti double booking)
+- Regras automáticas de cancelamento
+- Lógica de fidelização de clientes
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- Java 17
+- Spring Boot 3
+- Spring Data JPA
+- H2 Database
+- Maven
+- Lombok
+
+---
+
+## 🏗️ Arquitetura
+
+- **Controller:** exposição dos endpoints REST
+- **Service:** regras de negócio
+- **Repository:** acesso ao banco de dados
+- **DTO:** transporte seguro de dados
+- **Entity/Model:** estrutura das entidades
+
+---
+
+## 🔗 Endpoints
+
+### Clientes
+
+```http
+POST /clientes
+GET /clientes
+GET /clientes/{id}
+GET /clientes?page=0&size=10
+GET /clientes/email?email=example@email.com
+GET /clientes/nome?nome=Maria
+GET /clientes/{id}/desconto
+DELETE /clientes/{id}
+
+
