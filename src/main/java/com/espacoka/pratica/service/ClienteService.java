@@ -23,38 +23,34 @@ public class ClienteService {
 
     // 🔹 Criar cliente
     public ClienteResponseDTO criar(ClienteRequestDTO dto) {
-
         if (repository.existsByEmail(dto.getEmail())) {
-            throw new RegraNegocioException("Email já cadastrado");
+            throw new RegraNegocioException("Este e-mail já está sendo usado por outro cliente.");
         }
 
         Cliente cliente = toEntity(dto);
-        Cliente salvo = repository.save(cliente);
-
-        return toResponseDTO(salvo);
+        return toResponseDTO(repository.save(cliente));
     }
 
-    // 🔹 Buscar por ID
+    // 🔹 Buscar por ID (O Controller precisa deste!)
     public ClienteResponseDTO buscarPorId(Long id) {
         Cliente cliente = buscarOuFalhar(id);
         return toResponseDTO(cliente);
     }
 
-    // 🔹 Listar com paginação
+    // 🔹 Listar com paginação (O Controller precisa deste!)
     public Page<ClienteResponseDTO> listarPaginado(Pageable pageable) {
         return repository.findAll(pageable)
                 .map(this::toResponseDTO);
     }
 
-    // 🔹 Buscar por email
+    // 🔹 Buscar por email (O Controller precisa deste!)
     public ClienteResponseDTO buscarPorEmail(String email) {
         Cliente cliente = repository.findByEmail(email)
                 .orElseThrow(() -> new RegraNegocioException("Cliente não encontrado"));
-
         return toResponseDTO(cliente);
     }
 
-    // 🔹 Buscar por nome
+    // 🔹 Buscar por nome (O Controller precisa deste!)
     public List<ClienteResponseDTO> buscarPorNome(String nome) {
         return repository.findByNomeContainingIgnoreCase(nome)
                 .stream()
@@ -62,20 +58,22 @@ public class ClienteService {
                 .toList();
     }
 
-    // 🔹 Deletar
+    // 🔹 Deletar (O Controller precisa deste!)
     public void deletar(Long id) {
         Cliente cliente = buscarOuFalhar(id);
         repository.delete(cliente);
     }
 
-    // 🎁 Regra: desconto no mês do aniversário
+    // 🎁 Regra de Aniversário (Ajustei o nome para bater com o Controller)
     public boolean temDescontoAniversarioPorId(Long id) {
         Cliente cliente = buscarOuFalhar(id);
-        return temDescontoAniversario(cliente);
+        if (cliente.getDataNascimento() == null) return false;
+
+        return cliente.getDataNascimento().getMonth() == LocalDate.now().getMonth();
     }
 
     // ===============================
-    // 🔥 MÉTODOS PRIVADOS
+    // 🔥 MÉTODOS PRIVADOS / AUXILIARES
     // ===============================
 
     private Cliente buscarOuFalhar(Long id) {
@@ -83,20 +81,11 @@ public class ClienteService {
                 .orElseThrow(() -> new RegraNegocioException("Cliente não encontrado"));
     }
 
-    private boolean temDescontoAniversario(Cliente cliente) {
-        if (cliente.getDataNascimento() == null) {
-            return false;
-        }
-
-        return cliente.getDataNascimento().getMonthValue() ==
-                LocalDate.now().getMonthValue();
-    }
-
     private Cliente toEntity(ClienteRequestDTO dto) {
         Cliente cliente = new Cliente();
         cliente.setNome(dto.getNome());
-        cliente.setTelefone(dto.getTelefone());
         cliente.setEmail(dto.getEmail());
+        cliente.setTelefone(dto.getTelefone());
         cliente.setDataNascimento(dto.getDataNascimento());
         return cliente;
     }
