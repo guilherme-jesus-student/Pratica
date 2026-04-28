@@ -1,6 +1,6 @@
-# 💇‍♂️ Espaço Ka - Sistema de Agendamento Prática
+#  Espaço Ka - Sistema de Agendamento Prática
 
-Este é um sistema robusto de gestão para salões de beleza, desenvolvido com **Spring Boot 3**. O projeto foi evoluído de um CRUD básico para uma aplicação com regras de negócio reais, focado em automação e experiência do cliente.
+Este é um sistema robusto de gestão para salões de manicure, desenvolvido com **Spring Boot 3**. O projeto foi evoluído de um CRUD básico para uma aplicação com regras de negócio reais, focado em automação e experiência do cliente.
 
 ---
 
@@ -11,11 +11,11 @@ Este é um sistema robusto de gestão para salões de beleza, desenvolvido com *
 * **Agendamento Inteligente:** * Validação de horário de funcionamento (08h às 19h).
     * Bloqueio de agendamentos em horários passados.
     * **Prevenção de Conflitos:** O sistema impede que um profissional tenha dois agendamentos no mesmo horário.
-* **🤖 Automação (Scheduling):** Robô que monitora o banco de dados a cada 10 minutos e cancela automaticamente agendamentos com mais de 20 minutos de atraso.
+*  Automação (Scheduling):** Robô que monitora o banco de dados a cada 10 minutos e cancela automaticamente agendamentos com mais de 20 minutos de atraso.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+# Tecnologias Utilizadas
 
 * **Java 17**
 * **Spring Boot 3**
